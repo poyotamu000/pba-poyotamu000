@@ -97,6 +97,7 @@ $ cmake --build .
 ```
 Update this markdown document by editing `pba-<username>/task0/README.md` .Please learn the syntax of the markdown document by yourself.
 
+I can used cmake successfully
 
 
 ### Submit
