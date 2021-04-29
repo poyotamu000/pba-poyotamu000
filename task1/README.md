@@ -46,5 +46,6 @@ Modify `main.cpp` to collide points with the circular obstacle in the middle (se
 
 
 === Paste the screen shot here`![](<image file name>)`  ===
-
+![problem2_1](problem2_1.png)
+![problem2_2](problem2_2.png)
 
