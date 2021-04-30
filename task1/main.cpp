@@ -90,15 +90,10 @@ void simulate(
         float vnorm = p.velo[0]*norm[0] + p.velo[1]*norm[1]; // normal component of the velocity
         ////////////////////////////
         // write something below !
-        // If a point is inside the circle, push it outside the circle.
-        if( dist_from_center < 0.19){
-            p.pos[0] += 0.2;
-            p.pos[1] += 0.2;
-        }
         p.velo[0] -= 2 * vnorm * norm[0];
         p.velo[1] -= 2 * vnorm * norm[1];
-        p.pos[0] = p.pos[0];
-        p.pos[1] = p.pos[1];
+        p.pos[0] = 0.5 + 0.2 * norm[0];
+        p.pos[1] = 0.5 + 0.2 * norm[1];
       }
     }
   }
