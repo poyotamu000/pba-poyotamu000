@@ -136,22 +136,23 @@ void collision_detection(
       // write some codes here (probably 5 - 10 lines)
       // use the function "is_collide()" at line #102
 
-      std::cout << "size = " << stack.size() << std::endl; 
-
+      //std::cout << "size = " << stack.size() << std::endl; 
       if( stack.empty() == false ){
-        std::cout << "ic = " << pi.icircle << std::endl;
-        std::set<unsigned int>::iterator i = stack.begin()
-        while (i != stack.end())
-          if (aCircle[*i].pos[1] - rad <= aCircle[pi.icircle].pos[1] - rad <= aCircle[*i].pos[1] + rad){
-            aCircle[pi.icircle].is_collided = true;
-            aCircle[*i].is_collided = true;  
-          } 
-          if (aCircle[*i].pos[1] - rad <= aCircle[pi.icircle].pos[1] + rad <= aCircle[*i].pos[1] + rad){
-            aCircle[pi.icircle].is_collided = true;
-            aCircle[*i].is_collided = true;
-          }
-          std::cout << *i++ << " ";
-        std::cout << std::endl; 
+        /* std::cout << "ic = " << pi.icircle << std::endl;
+        std::cout << "stack = ";
+        for (const auto& e : stack){
+            std::cout << e << " ";
+        }
+        std::cout << "\n" << std::endl;
+        */
+        bool judge_collided = false;
+        
+        
+        for (const auto& e : stack) {
+            judge_collided = is_collide(aCircle[e], aCircle[ic0], rad);
+            aCircle[ic0].is_collided = judge_collided;
+            aCircle[e].is_collided = judge_collided;
+        }
       }
       // ----------------------------------------------
       stack.insert(ic0);
