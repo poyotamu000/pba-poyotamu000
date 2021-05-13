@@ -129,12 +129,30 @@ void collision_detection(
   std::sort(aPosIndex.begin(),aPosIndex.end()); // sort array by quick sort
   std::set<unsigned int> stack;
   for(auto& pi : aPosIndex){
-//    std::cout << pi.p << " " << pi.is_start << " " << pi.icircle << std::endl;
+    // std::cout << pi.p << " " << pi.is_start << " " << pi.icircle << std::endl;
     if( pi.is_start ){ // enter the range of the circle
       unsigned int ic0 = pi.icircle;
       // ----------------------------------------------
       // write some codes here (probably 5 - 10 lines)
       // use the function "is_collide()" at line #102
+
+      std::cout << "size = " << stack.size() << std::endl; 
+
+      if( stack.empty() == false ){
+        std::cout << "ic = " << pi.icircle << std::endl;
+        std::set<unsigned int>::iterator i = stack.begin()
+        while (i != stack.end())
+          if (aCircle[*i].pos[1] - rad <= aCircle[pi.icircle].pos[1] - rad <= aCircle[*i].pos[1] + rad){
+            aCircle[pi.icircle].is_collided = true;
+            aCircle[*i].is_collided = true;  
+          } 
+          if (aCircle[*i].pos[1] - rad <= aCircle[pi.icircle].pos[1] + rad <= aCircle[*i].pos[1] + rad){
+            aCircle[pi.icircle].is_collided = true;
+            aCircle[*i].is_collided = true;
+          }
+          std::cout << *i++ << " ";
+        std::cout << std::endl; 
+      }
       // ----------------------------------------------
       stack.insert(ic0);
     }
