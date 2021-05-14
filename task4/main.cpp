@@ -145,13 +145,25 @@ void collision_detection(
         }
         std::cout << "\n" << std::endl;
         */
+        
+        /*        std::vector<CPosIndex> bPosIndex;
+        bPosIndex.reserve(stack.size());
+        for(unsigned int ic=0; ic < stack.size(); ++ic){
+          bPosIndex.push_back({aCircle[ic].pos[0] - rad, true, ic}); // enter
+          bPosIndex.push_back({aCircle[ic].pos[0] + rad, false, ic}); // exit
+        }
+        */
+
         bool judge_collided = false;
         
-        
         for (const auto& e : stack) {
-            judge_collided = is_collide(aCircle[e], aCircle[ic0], rad);
+          judge_collided = is_collide(aCircle[e], aCircle[ic0], rad);
+          if (aCircle[ic0].is_collided == false){
             aCircle[ic0].is_collided = judge_collided;
+          }
+          if (aCircle[e].is_collided == false){
             aCircle[e].is_collided = judge_collided;
+          }
         }
       }
       // ----------------------------------------------
