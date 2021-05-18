@@ -36,3 +36,5 @@ Fill the code around line #90 to **analytically** compute the graiend and hessia
 Paste the screenshot image of the result below.
 
 === paset screenshot here ===
+![Problem2_1](Problem2_1.png)
+![Problem2_2](Problem2_2.png)
