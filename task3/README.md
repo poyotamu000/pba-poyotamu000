@@ -44,3 +44,4 @@ Fill the code around line #56 to compute the correct hessian of the energy (abou
 Paste the screenshot image of converged deformation below:
 
 == paste screenshot image here==
+![Problem2](Problem2.png)
