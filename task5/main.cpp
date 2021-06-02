@@ -30,12 +30,17 @@ void GaussSeidelRelaxation(
     for (auto ipsup = aPsupInd[ip]; ipsup < aPsupInd[ip + 1]; ++ipsup) {
       const unsigned int jp = aPsup[ipsup]; // index of point neighbouring ip
       // write something here
+      const double* p1 = aXY.data()+jp*2;
       // write something here
+      pos_new[0] += p1[0];
+      pos_new[1] += p1[1];
     }
     // write something here
+    pos_new[0] /= aPsupInd.size();
+    pos_new[1] /= aPsupInd.size();
     // un-comment below
-    // aXY[ip*2+0] = pos_new[0]; // update the x-coordinate of ip
-    // aXY[ip*2+1] = pos_new[1]; // update the y-coordinate of ip
+    aXY[ip*2+0] = pos_new[0]; // update the x-coordinate of ip
+    aXY[ip*2+1] = pos_new[1]; // update the y-coordinate of ip
   }
 }
 

@@ -42,5 +42,6 @@ The one-ring neighbourhood of vertices are stored inside `Psup_Ind` and `Psup` i
 Write some code around line #31 in the `main.cpp`. **Once the implementation is successful, the energy should steadly decrease.** Paste the resulting screenshot image below.
 
 === paste screenshot image here ===
+![Problem2](Problem2.png)
 
 ---
