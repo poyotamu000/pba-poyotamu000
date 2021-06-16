@@ -49,6 +49,15 @@ void InitializeProblem(
   }
 }
 
+inline Eigen::Matrix3d Skew(const Eigen::Vector3d& a)
+{
+    Eigen::Matrix3d mat;
+    mat << 0.0, -a(2), a(1),
+        a(2), 0.0, -a(0),
+        -a(1), a(0), 0.0;
+    return mat;
+}
+
 /**
  * energy ||Rp-q||^2 and its gradient and hessian
  * @param[out] W energy
@@ -69,8 +78,10 @@ void WdWddW_Rotation(
   const Eigen::Vector3d Rp = R*p;
   W = (Rp-q).squaredNorm();
   // compute gradient and hessian of the energy below.
-  // dW =
-  // ddW =
+  dW = Skew(Rp) * (Rp - q) / W;
+  ddW = Skew(Rp) * (Eigen::Matrix3d::Identity() - (Rp - q) * (Rp - q).transpose() / (W * W)) * Skew(Rp) / W;
+  // ddW << 0,p[2]*2,-p[1]*2, -p[2]*2,0,p[0]*2, p[1]*2,-p[0]*2,0;
+  // ddW << p[0]*2, p[1]*2, p[2]*2, p[0]*2, p[1]*2, p[2]*2, p[0]*2, p[1]*2, p[2]*2;
 }
 
 /**

@@ -49,5 +49,6 @@ Report the energy after convergence:
 Paste the resulting screenshot image below:
 
 === paste screenshot image here ===
+![Problem2](Problem2.png)
 
 ---
