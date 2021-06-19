@@ -78,8 +78,16 @@ void WdWddW_Rotation(
   const Eigen::Vector3d Rp = R*p;
   W = (Rp-q).squaredNorm();
   // compute gradient and hessian of the energy below.
+
+  // dW = 2 * dR * R.T * (Rp-q)
+  // Skew(Rp) = dR*R.T 
   dW = 2 * Skew(Rp) * (Rp - q);
-  ddW = 2 * Skew(Rp) * Skew(Rp);
+  // ddW = 2 * [{dSkew(Rp)*(Rp-q)} + {Skew(Rp)*dR}]
+  // ddW = 2 * [{dSkew(Rp)*(Rp-q)} + {Skew(Rp)*Skew(Rp)*R}]
+  // Skew(Rp) = dR*R.T 
+  // dSkew(Rp) = ddR*R.T + dR*dR.T
+  // 多分，成分計算したらdSew(Rp) = 0
+  ddW = 2 * (Skew(Rp) * Skew(Rp) * R);
 }
 
 /**
