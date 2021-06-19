@@ -79,9 +79,7 @@ void WdWddW_Rotation(
   W = (Rp-q).squaredNorm();
   // compute gradient and hessian of the energy below.
   dW = 2 * Skew(Rp) * (Rp - q);
-  ddW = 2 * Skew(Rp) * (Eigen::Matrix3d::Identity() - (Rp - q) * (Rp - q).transpose() / (W * W)) * Skew(Rp);
-  // ddW << 0,p[2]*2,-p[1]*2, -p[2]*2,0,p[0]*2, p[1]*2,-p[0]*2,0;
-  // ddW << p[0]*2, p[1]*2, p[2]*2, p[0]*2, p[1]*2, p[2]*2, p[0]*2, p[1]*2, p[2]*2;
+  ddW = 2 * Skew(Rp) * Skew(Rp);
 }
 
 /**
