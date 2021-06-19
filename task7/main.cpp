@@ -86,7 +86,8 @@ void WdWddW_Rotation(
   // ddW = 2 * [{dSkew(Rp)*(Rp-q)} + {Skew(Rp)*Skew(Rp)*R}]
   // Skew(Rp) = dR*R.T 
   // dSkew(Rp) = ddR*R.T + dR*dR.T
-  // 多分，成分計算したらdSew(Rp) = 0
+  // ddRは計算できないので，成分計算したら, dSkew(Rp) = 0 だから
+  // ddW = 2 * {Skew(Rp)*Skew(Rp)*R} 
   ddW = 2 * (Skew(Rp) * Skew(Rp) * R);
 }
 
