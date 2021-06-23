@@ -51,12 +51,4 @@ The following slide may be useful :
 Paste the screenshot image of the animation below:
 
 == paste screenshot image here==
-
-
-
-
-
-
-
-
-
+![Problem2](Problem2.png)
