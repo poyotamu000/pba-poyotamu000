@@ -150,7 +150,8 @@ void AnimationByEnergyMinimization(
   // add the inertia effect below
   for(unsigned int i=0;i<nDof;++i){
     ///////////////
-    hessW(i, i) += mass_point;
+    gradW(i) += 2 * mass_point / (dt * dt) * (aXY[i] - aXYt[i]);
+    hessW(i, i) += 2 * mass_point / (dt * dt);
   }
   // adding boundary condition
   for(unsigned int i=0;i<nDof;++i){

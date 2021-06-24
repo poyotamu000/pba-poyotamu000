@@ -51,4 +51,6 @@ The following slide may be useful :
 Paste the screenshot image of the animation below:
 
 == paste screenshot image here==
-![Problem2](Problem2.png)
+![Problem2](Problem2_1.png)
+![Problem2](Problem2_2.png)
+![Problem2](Problem2_3.png)
