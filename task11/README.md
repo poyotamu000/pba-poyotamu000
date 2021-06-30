@@ -40,6 +40,7 @@ Build the program using `cmake`.
 Run the program and take a screenshot image of the window. Paste the screenshot image below by editing this mark down document:
 
 === paste screenshot here ===
+![Problem1](Problem1.png)
 
 
 ## Problem 2
