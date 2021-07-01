@@ -36,6 +36,15 @@ double MassCenterofgravity_MeshTri3(
   return M;
 }
 
+inline Eigen::Matrix3d Skew_Squared(const Eigen::Vector3d& a)
+{
+    Eigen::Matrix3d mat;
+    mat << -a(1)*a(1)-a(2)*a(2), a(0)*a(1), a(0)*a(2),
+        a(0)*a(1), -a(2)*a(2)-a(0)*a(0), a(1)*a(2),
+        a(0)*a(2), a(1)*a(2), -a(1)*a(1)-a(2)*a(2);
+    return mat;
+}
+
 /**
  * compute inertia tensor
  * @param[out] Imat 3x3 inertia tensor
@@ -57,8 +66,15 @@ void InertiaTensor(
     };
     const double area = (ap[1]-ap[0]).cross(ap[2]-ap[0]).norm()/2; // area of triangle
     // write some code below to compute inertia tensor
+
+    Eigen::Vector3d center_of_triangle = (ap[0] + ap[1] + ap[2]) / 3;
+    // Eigen::Matrix3d Skew_Squared;
+    // Skew_Squared = Eigen::KroneckerProductSparse(center_of_triangle, center_of_triangle) - center_of_triangle.transpose().dot(center_of_triangle) * Eigen::Matrix3d::Identity();
+    Imat += area * Skew_Squared(center_of_triangle);
   }
 }
+
+
 
 /**
  * Read 3D mesh file in Alias *.Obj format
