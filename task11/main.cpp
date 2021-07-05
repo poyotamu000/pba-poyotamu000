@@ -81,8 +81,8 @@ void InertiaTensor(
         } else {
             kronecker = 0.0;
         }
-        // Imat += (ap[it].transpose() * ap[j] * Eigen::Matrix3d::Identity() - ap[it] * ap[j].transpose()) * area / 12 * (1 + kronecker);
-        Imat += Skew_Squared(ap[i]) * Skew_Squared(ap[j]) * area / 12 * (1 + kronecker);
+        Imat += (ap[i].transpose() * ap[j] * Eigen::Matrix3d::Identity() - ap[i] * ap[j].transpose()) * area / 12 * (1 + kronecker);
+        // Imat += Skew_Squared(ap[i]) * Skew_Squared(ap[j]) * area / 12 * (1 + kronecker);
       }
     }
   }
