@@ -67,10 +67,24 @@ void InertiaTensor(
     const double area = (ap[1]-ap[0]).cross(ap[2]-ap[0]).norm()/2; // area of triangle
     // write some code below to compute inertia tensor
 
-    Eigen::Vector3d center_of_triangle = (ap[0] + ap[1] + ap[2]) / 3;
     // Eigen::Matrix3d Skew_Squared;
     // Skew_Squared = Eigen::KroneckerProductSparse(center_of_triangle, center_of_triangle) - center_of_triangle.transpose().dot(center_of_triangle) * Eigen::Matrix3d::Identity();
-    Imat += area * Skew_Squared(center_of_triangle);
+
+    //Eigen::Vector3d center_of_triangle = (ap[0] + ap[1] + ap[2]) / 3;
+    //Imat += 1 * Skew_Squared(center_of_triangle);
+
+    double kronecker = 0.0;
+    for (unsigned int i = 0; i < 3; ++i) {
+      for (unsigned int j = 0; j < 3; ++j) {
+        if (i == j) {
+            kronecker = 1.0;
+        } else {
+            kronecker = 0.0;
+        }
+        // Imat += (ap[it].transpose() * ap[j] * Eigen::Matrix3d::Identity() - ap[it] * ap[j].transpose()) * area / 12 * (1 + kronecker);
+        Imat += Skew_Squared(ap[i]) * Skew_Squared(ap[j]) * area / 12 * (1 + kronecker);
+      }
+    }
   }
 }
 
