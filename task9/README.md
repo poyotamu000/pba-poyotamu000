@@ -33,6 +33,7 @@ Paste the image below.
 
 === paste screenshot here ===
 
+![Problem1](Problem1.gif)
 
 
 ## Problem 2
