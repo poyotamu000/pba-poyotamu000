@@ -120,43 +120,43 @@ int main()
             aMass[aQuad[iq*4+1]],
             aMass[aQuad[iq*4+2]],
             aMass[aQuad[iq*4+3]] };
-          // write some code below to rigidly transform the points in the rest shape (`aq`) such that the
-          // weighted sum of squared distances against the points in the tentative shape (`ap`) is minimized (`am` is the weight).
-          float sum_each_grid_mass = 0;
-          Eigen::Vector2f sum_each_grid_massvec_tentative;
-          sum_each_grid_massvec_tentative = Eigen::Vector2f::Zero();
-          Eigen::Vector2f sum_each_grid_massvec_rest;
-          sum_each_grid_massvec_rest = Eigen::Vector2f::Zero();
+        // write some code below to rigidly transform the points in the rest shape (`aq`) such that the
+        // weighted sum of squared distances against the points in the tentative shape (`ap`) is minimized (`am` is the weight).
+        float sum_each_grid_mass = 0;
+        Eigen::Vector2f sum_each_grid_massvec_tentative;
+        sum_each_grid_massvec_tentative = Eigen::Vector2f::Zero();
+        Eigen::Vector2f sum_each_grid_massvec_rest;
+        sum_each_grid_massvec_rest = Eigen::Vector2f::Zero();
 
-          for (unsigned int i = 0; i < 4; i++) {
-              sum_each_grid_mass += am[i];
-              sum_each_grid_massvec_tentative += am[i] * ap[i];
-              sum_each_grid_massvec_rest += am[i] * aq[i];
-          }
+        for (unsigned int i = 0; i < 4; i++) {
+            sum_each_grid_mass += am[i];
+            sum_each_grid_massvec_tentative += am[i] * ap[i];
+            sum_each_grid_massvec_rest += am[i] * aq[i];
+        }
 
-          Eigen::Vector2f tentative_center_g_vec = Eigen::Vector2f::Zero();
-          tentative_center_g_vec = sum_each_grid_massvec_tentative / sum_each_grid_mass;  // t_cg
-          Eigen::Vector2f rest_center_g_vec = Eigen::Vector2f::Zero();
-          rest_center_g_vec = sum_each_grid_massvec_rest / sum_each_grid_mass;  // T_cg
+        Eigen::Vector2f tentative_center_g_vec = Eigen::Vector2f::Zero();
+        tentative_center_g_vec = sum_each_grid_massvec_tentative / sum_each_grid_mass;  // t_cg
+        Eigen::Vector2f rest_center_g_vec = Eigen::Vector2f::Zero();
+        rest_center_g_vec = sum_each_grid_massvec_rest / sum_each_grid_mass;  // T_cg
 
-          Eigen::Matrix2f B_AT;
-          B_AT = Eigen::Matrix2f::Zero();
-          for (unsigned int j = 0; j < 4; j++) {
-              B_AT += am[j] * (ap[j] - tentative_center_g_vec) * (aq[j] - rest_center_g_vec).transpose();
-          } 
+        Eigen::Matrix2f B_AT;
+        B_AT = Eigen::Matrix2f::Zero();
+        for (unsigned int j = 0; j < 4; j++) {
+            B_AT += am[j] * (ap[j] - tentative_center_g_vec) * (aq[j] - rest_center_g_vec).transpose();
+        } 
 
-          // SVD
-          Eigen::JacobiSVD<Eigen::Matrix2f> svd(B_AT, Eigen::ComputeFullU | Eigen::ComputeFullV);
-          Eigen::Matrix2f R_opt = svd.matrixU() * svd.matrixV().transpose();
+        // SVD
+        Eigen::JacobiSVD<Eigen::Matrix2f> svd(B_AT, Eigen::ComputeFullU | Eigen::ComputeFullV);
+        Eigen::Matrix2f R_opt = svd.matrixU() * svd.matrixV().transpose();
 
-          Eigen::Vector2f t_opt = tentative_center_g_vec - R_opt * rest_center_g_vec;
+        Eigen::Vector2f t_opt = tentative_center_g_vec - R_opt * rest_center_g_vec;
 
-          // アドレスでアクセスして更新
-          for (unsigned int k = 0; k < 4; k++) {
-            Eigen::Vector2f new_ap = R_opt * aq[k] + t_opt;
-            (aXYt.data() + aQuad[iq * 4 + k] * 2)[0] = new_ap(0);
-            (aXYt.data() + aQuad[iq * 4 + k] * 2)[1] = new_ap(1);
-          }      
+        // アドレスでアクセスして更新
+        for (unsigned int k = 0; k < 4; k++) {
+          Eigen::Vector2f new_ap = R_opt * aq[k] + t_opt;
+          (aXYt.data() + aQuad[iq * 4 + k] * 2)[0] = new_ap(0);
+          (aXYt.data() + aQuad[iq * 4 + k] * 2)[1] = new_ap(1);
+        }      
     
           // no edits further down
       }
