@@ -104,7 +104,7 @@ int main()
         aXYt[ixy*2+0] = aXY[ixy*2+0] + dt*aUV[ixy*2+0];
         aXYt[ixy*2+1] = aXY[ixy*2+1] + dt*aUV[ixy*2+1];
       }
-      for (unsigned int iq = 0; iq < aQuad.size() / 4; ++iq) {
+      for(unsigned int iq=0;iq<aQuad.size()/4;++iq){
         const Eigen::Vector2f ap[4] = { // coordinates of quad's corner points (tentative shape)
             Eigen::Map<Eigen::Vector2f>(aXYt.data()+aQuad[iq*4+0]*2),
             Eigen::Map<Eigen::Vector2f>(aXYt.data()+aQuad[iq*4+1]*2),
