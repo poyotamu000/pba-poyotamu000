@@ -104,30 +104,22 @@ int main()
         aXYt[ixy*2+0] = aXY[ixy*2+0] + dt*aUV[ixy*2+0];
         aXYt[ixy*2+1] = aXY[ixy*2+1] + dt*aUV[ixy*2+1];
       }
-
-      /*
-      std::cout << aXY.size() / 2 << std::endl;  // 44
-      std::cout << aQuad.size() / 4 << std::endl;  // 30
-      */
-      // std::cout << aXYt.data() << std::endl;
-
       for (unsigned int iq = 0; iq < aQuad.size() / 4; ++iq) {
-          const Eigen::Vector2f ap[4] = {// coordinates of quad's corner points (tentative shape)
-              Eigen::Map<Eigen::Vector2f>(aXYt.data() + aQuad[iq * 4 + 0] * 2),
-              Eigen::Map<Eigen::Vector2f>(aXYt.data() + aQuad[iq * 4 + 1] * 2),
-              Eigen::Map<Eigen::Vector2f>(aXYt.data() + aQuad[iq * 4 + 2] * 2),
-              Eigen::Map<Eigen::Vector2f>(aXYt.data() + aQuad[iq * 4 + 3] * 2)};
-          const Eigen::Vector2f aq[4] = {// coordinates of quads' corner points (rest shape)
-              Eigen::Map<const Eigen::Vector2f>(aXY0.data() + aQuad[iq * 4 + 0] * 2),
-              Eigen::Map<const Eigen::Vector2f>(aXY0.data() + aQuad[iq * 4 + 1] * 2),
-              Eigen::Map<const Eigen::Vector2f>(aXY0.data() + aQuad[iq * 4 + 2] * 2),
-              Eigen::Map<const Eigen::Vector2f>(aXY0.data() + aQuad[iq * 4 + 3] * 2)};
-          const float am[4] = {// masses of the points
-              aMass[aQuad[iq * 4 + 0]],
-              aMass[aQuad[iq * 4 + 1]],
-              aMass[aQuad[iq * 4 + 2]],
-              aMass[aQuad[iq * 4 + 3]]};
-
+        const Eigen::Vector2f ap[4] = { // coordinates of quad's corner points (tentative shape)
+            Eigen::Map<Eigen::Vector2f>(aXYt.data()+aQuad[iq*4+0]*2),
+            Eigen::Map<Eigen::Vector2f>(aXYt.data()+aQuad[iq*4+1]*2),
+            Eigen::Map<Eigen::Vector2f>(aXYt.data()+aQuad[iq*4+2]*2),
+            Eigen::Map<Eigen::Vector2f>(aXYt.data()+aQuad[iq*4+3]*2) };
+        const Eigen::Vector2f aq[4] = { // coordinates of quads' corner points (rest shape)
+            Eigen::Map<const Eigen::Vector2f>(aXY0.data()+aQuad[iq*4+0]*2),
+            Eigen::Map<const Eigen::Vector2f>(aXY0.data()+aQuad[iq*4+1]*2),
+            Eigen::Map<const Eigen::Vector2f>(aXY0.data()+aQuad[iq*4+2]*2),
+            Eigen::Map<const Eigen::Vector2f>(aXY0.data()+aQuad[iq*4+3]*2) };
+        const float am[4] = { // masses of the points
+            aMass[aQuad[iq*4+0]],
+            aMass[aQuad[iq*4+1]],
+            aMass[aQuad[iq*4+2]],
+            aMass[aQuad[iq*4+3]] };
           // write some code below to rigidly transform the points in the rest shape (`aq`) such that the
           // weighted sum of squared distances against the points in the tentative shape (`ap`) is minimized (`am` is the weight).
           float sum_each_grid_mass = 0;
