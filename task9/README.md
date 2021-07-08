@@ -46,6 +46,7 @@ Paste the screenshot image of the program once it is finished.
 
 === paste screenshot here ===
 
+![Problem2](Problem2.gif)
 
 ## Material 
 
