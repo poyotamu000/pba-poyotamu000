@@ -81,14 +81,24 @@ void WdWddW_Rotation(
 
   // dW = 2 * dR * R.T * (Rp-q)
   // Skew(Rp) = dR*R.T 
-  dW = 2 * Skew(Rp) * (Rp - q);
+
+  // dW = 2 * Skew(Rp) * (Rp - q);
+
   // ddW = 2 * [{dSkew(Rp)*(Rp-q)} + {Skew(Rp)*dR}]
   // ddW = 2 * [{dSkew(Rp)*(Rp-q)} + {Skew(Rp)*Skew(Rp)*R}]
   // Skew(Rp) = dR*R.T 
   // dSkew(Rp) = ddR*R.T + dR*dR.T
   // ddRは計算できないので，成分計算したら, dSkew(Rp) = 0 だから
   // ddW = 2 * {Skew(Rp)*Skew(Rp)*R} 
+
+  // ddW = 2 * (Skew(Rp) * Skew(Rp) * R);
+
+  dW = -2 * Skew(Rp) * q;
+  // ddW = ;
   ddW = 2 * (Skew(Rp) * Skew(Rp) * R);
+  ddW = 2 * q.transpose() * Rp * Eigen::Matrix3d::Identity()
+        - q * Rp.transpose()
+        - Rp * q.transpose();
 }
 
 /**
