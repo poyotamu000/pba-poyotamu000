@@ -129,12 +129,43 @@ void collision_detection(
   std::sort(aPosIndex.begin(),aPosIndex.end()); // sort array by quick sort
   std::set<unsigned int> stack;
   for(auto& pi : aPosIndex){
-//    std::cout << pi.p << " " << pi.is_start << " " << pi.icircle << std::endl;
+    // std::cout << pi.p << " " << pi.is_start << " " << pi.icircle << std::endl;
     if( pi.is_start ){ // enter the range of the circle
       unsigned int ic0 = pi.icircle;
       // ----------------------------------------------
       // write some codes here (probably 5 - 10 lines)
       // use the function "is_collide()" at line #102
+
+      //std::cout << "size = " << stack.size() << std::endl; 
+      if( stack.empty() == false ){
+        /* std::cout << "ic = " << pi.icircle << std::endl;
+        std::cout << "stack = ";
+        for (const auto& e : stack){
+            std::cout << e << " ";
+        }
+        std::cout << "\n" << std::endl;
+        */
+        
+        /*        std::vector<CPosIndex> bPosIndex;
+        bPosIndex.reserve(stack.size());
+        for(unsigned int ic=0; ic < stack.size(); ++ic){
+          bPosIndex.push_back({aCircle[ic].pos[0] - rad, true, ic}); // enter
+          bPosIndex.push_back({aCircle[ic].pos[0] + rad, false, ic}); // exit
+        }
+        */
+
+        bool judge_collided = false;
+        
+        for (const auto& e : stack) {
+          judge_collided = is_collide(aCircle[e], aCircle[ic0], rad);
+          if (aCircle[ic0].is_collided == false){
+            aCircle[ic0].is_collided = judge_collided;
+          }
+          if (aCircle[e].is_collided == false){
+            aCircle[e].is_collided = judge_collided;
+          }
+        }
+      }
       // ----------------------------------------------
       stack.insert(ic0);
     }
